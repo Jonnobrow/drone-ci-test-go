@@ -1,0 +1,70 @@
+---
+kind: pipeline
+type: docker
+name: app1
+
+steps:
+- name: test
+  image: golang
+  volumes:
+  - name: deps
+    path: /go
+  commands:
+    - cd apps/app1
+    - go test
+
+- name: build
+  image: golang
+  volumes:
+    - name: deps
+      path: /go
+  commands:
+    - cd apps/app1
+    - go test
+
+volumes:
+- name: deps
+  temp: {}
+
+---
+kind: pipeline
+type: docker
+name: app2
+
+steps:
+- name: test
+  image: golang
+  volumes:
+  - name: deps
+    path: /go
+  commands:
+    - cd apps/app2
+    - go test
+
+- name: build
+  image: golang
+  volumes:
+    - name: deps
+      path: /go
+  commands:
+    - cd apps/app2
+    - go test
+
+volumes:
+- name: deps
+  temp: {}
+
+---
+kind: pipeline
+type: docker
+name: wrapup
+depends_on:
+  - app1
+  - app2
+
+steps:
+- name: wrapup
+  image: alpine
+  commands:
+    - echo "All done now :)"
+  
