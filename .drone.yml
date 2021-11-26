@@ -5,7 +5,7 @@ name: app1
 
 steps:
 - name: test
-  image: golang
+  image: golang:alpine
   volumes:
   - name: deps
     path: /go
@@ -14,7 +14,7 @@ steps:
     - go test
 
 - name: build
-  image: golang
+  image: golang:alpine
   volumes:
     - name: deps
       path: /go
@@ -33,7 +33,7 @@ name: app2
 
 steps:
 - name: test
-  image: golang
+  image: golang:alpine
   volumes:
   - name: deps
     path: /go
@@ -42,7 +42,7 @@ steps:
     - go test
 
 - name: build
-  image: golang
+  image: golang:alpine
   volumes:
     - name: deps
       path: /go
